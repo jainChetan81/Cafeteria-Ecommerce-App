@@ -14,9 +14,21 @@ class Checkout extends Component {
         loading: true,
         totalPrice: 0,
         form: false,
+        formData: {},
     };
-    formFilled = () => {
-        this.setState({ form: true });
+    formSubmit = (e, imageURI) => {
+        e.preventDefault();
+        const formData = {
+            email: e.target.email.value,
+            name: e.target.name.value,
+            orgName: e.target.orgName.value,
+            empId: e.target.empId.value,
+            mobile: e.target.mobile.value,
+            payment: e.target.payment.value,
+            image: imageURI,
+        };
+        console.log("formData", formData);
+        this.setState({ form: true, formData });
     };
     async componentDidMount() {
         this.setState({ loading: true });
@@ -39,6 +51,7 @@ class Checkout extends Component {
         });
         this.setState({ totalPrice: price });
     };
+
     decrementItem = (id) => {
         let updatedCart = [...this.state.cart];
         let updatedItems = [...this.state.items];
@@ -60,6 +73,7 @@ class Checkout extends Component {
             .update(id, { count: updatedItems[indexItems].count })
             .catch((err) => console.error("err5", err));
     };
+
     removeAllItems = () => {
         let cart = [...this.state.cart];
         cart.forEach((item) => {
@@ -67,6 +81,7 @@ class Checkout extends Component {
         });
         this.props.history.push("/");
     };
+
     incrementItem = (id) => {
         let updatedCart = [...this.state.cart];
         let updatedItems = [...this.state.items];
@@ -107,7 +122,7 @@ class Checkout extends Component {
             .catch((err) => console.error("err8", err));
     };
     render() {
-        const { cart, form } = this.state;
+        const { cart, form, formData } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -137,10 +152,11 @@ class Checkout extends Component {
                         <EmptyCart />
                     )}
                     <CartTotals
+                        formData={formData}
                         removeAllItems={this.removeAllItems}
                         totalPrice={this.state.totalPrice}
                         form={form}
-                        formFilled={this.formFilled}
+                        formSubmit={this.formSubmit}
                     />
                     <ToastContainer
                         position="bottom-left"

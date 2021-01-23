@@ -24,6 +24,7 @@ mongoose
     .connect(mongoURI, {
         useNewUrlParser: true,
         useCreateIndex: true,
+        useUnifiedTopology: true,
     })
     .catch((err) => console.log("err :", err));
 mongoose.connection.on("connected", () => {

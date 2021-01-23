@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Modal from "@material-ui/core/Modal";
 import CartModal from "./CartModal";
-
+import InfoTable from "../InfoTable";
 import { makeStyles } from "@material-ui/core/styles";
 import Payments from "../Payments";
 
@@ -25,7 +25,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CartTotals = ({ removeAllItems, totalPrice, form, formFilled }) => {
+const CartTotals = ({
+    removeAllItems,
+    totalPrice,
+    form,
+    formSubmit,
+    formData,
+}) => {
     const [modalStyle] = React.useState(getModalStyle);
     const [show, showModal] = useState(false);
     const classes = useStyles();
@@ -44,13 +50,13 @@ const CartTotals = ({ removeAllItems, totalPrice, form, formFilled }) => {
                 <div style={modalStyle} className={classes.paper}>
                     <CartModal
                         totalPrice={totalPrice}
-                        formFilled={formFilled}
+                        formSubmit={formSubmit}
                         removeAllItems={removeAllItems}
                         onClose={closeModal}
-                        totalPrice={totalPrice}
                     />
                 </div>
             </Modal>
+            {formData.name !== undefined && <InfoTable formData={formData} />}
             {totalPrice > 0 && (
                 <div className="row">
                     <div className="col-10 mt-2 ml-sm-5 ml-md-auto col-sm-8 text-capitalize text-right">

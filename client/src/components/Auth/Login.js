@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import db from "../../Database/IndexDB";
-import Dashboard from "../../Container/Dashboard";
 import Spinner from "../Spinner/Spinner";
 const route = "http://localhost:5000";
 

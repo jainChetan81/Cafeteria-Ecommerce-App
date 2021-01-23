@@ -1,11 +1,5 @@
 import React, { Suspense, Component } from "react";
-import {
-    Redirect,
-    Route,
-    Switch,
-    withRouter,
-    BrowserRouter as Router,
-} from "react-router-dom";
+import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import Dashboard from "../Container/Dashboard";
 import Checkout from "../Container/Checkout";
 import Login from "../components/Auth/Login";
