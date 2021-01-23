@@ -23,7 +23,6 @@ export default function NewsCard({
         return v;
     };
 
-    const image = `https://source.unsplash.com/300x2${item.id + 10}`;
     return (
         <div className="col-md-3" style={{ marginBottom: "2rem" }}>
             <div className="newss__box">
@@ -33,13 +32,12 @@ export default function NewsCard({
                         width: "100%",
                         height: "100%",
                     }}
-                    src={image}
-                    alt={`300x2${item.id + 10}`}
+                    src={item.img}
                 />
                 <div className="news__text">
                     <h5 className="newss__title">{item.title}</h5>
                     <p className="newss__subtitle">
-                        Company : <span>{item.company}</span>
+                        Vendor : <span>{item.vendor}</span>
                     </p>
                 </div>
                 <button

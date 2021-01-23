@@ -5,6 +5,17 @@ function InfoTable({ formData }) {
         <table className="table table-striped table-dark">
             <tbody>
                 <tr>
+                    <th scope="row">ID Card</th>
+                    <td>
+                        <img
+                            src={formData.image}
+                            style={{ width: "6rem", height: "4rem" }}
+                            alt="product"
+                            className="img-fluid ml-4"
+                        />
+                    </td>
+                </tr>
+                <tr>
                     <th scope="row">Full Name</th>
                     <td>{formData.name}</td>
                 </tr>

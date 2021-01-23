@@ -20,10 +20,13 @@ export default class NewsModal extends Component {
                 {activeItem.length !== "" ? (
                     <div className="active-news">
                         <img
-                            src={`https://source.unsplash.com/300x2${
-                                activeItem.id + 10
-                            }`}
+                            src={activeItem.img}
                             alt={activeItem.title}
+                            style={{
+                                objectFit: "contain",
+                                width: "100%",
+                                height: "100%",
+                            }}
                             className="active-news__img"
                         />
                         <h3 className="active-news__title">
@@ -34,8 +37,8 @@ export default class NewsModal extends Component {
                         </p>
 
                         <h5 className="active-news__publisher">
-                            Company:
-                            <span>{activeItem.company}</span>
+                            Vendor:
+                            <span>{activeItem.vendor}</span>
                         </h5>
                         <h5 className="active-news__publisher">
                             Info:
