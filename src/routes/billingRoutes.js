@@ -8,7 +8,7 @@ const Router = express.Router();
 
 Router.post("/", (req, res) => {
     const { token, userID, name, totalPrice } = req.body;
-    console.log(token, userID, name, totalPrice);
+    console.log(userID, name, totalPrice);
     stripe.charges
         .create({
             amount: 500,
@@ -22,7 +22,7 @@ Router.post("/", (req, res) => {
             order.name = name;
             order.totalAmount = totalPrice;
             order.tokenId = token.id;
-            order.userID = userID;
+            order._user = userID;
             order
                 .save()
                 .then((newUser) => {

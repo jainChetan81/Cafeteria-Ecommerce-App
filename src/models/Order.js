@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new Schema({
     name: {
         type: String,
-        unique: true,
         required: true,
     },
     tokenId: String,
-    userID: String,
+    _user: { type: Schema.Types.ObjectId, ref: "User" },
     totalAmount: {
         type: String,
         required: true,
