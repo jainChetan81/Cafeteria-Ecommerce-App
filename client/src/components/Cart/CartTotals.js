@@ -5,6 +5,9 @@ import CartModal from "./CartModal";
 import InfoTable from "../InfoTable";
 import { makeStyles } from "@material-ui/core/styles";
 import Payments from "../Payments";
+import { toast } from "react-toastify";
+import axios from "axios";
+import db from "../../Database/IndexDB";
 
 function getModalStyle() {
     const top = 50;
@@ -43,6 +46,43 @@ const CartTotals = ({
         e.preventDefault();
         showModal(true);
     };
+
+    const finishCheckout = (token) => {
+        console.log("token", token);
+        let user = {};
+        db.token.toArray().then((currentUser) => {
+            console.log("user[0].token", user);
+            if (currentUser.length > 0) user = currentUser[0];
+            formData.image = "";
+            axios
+                .post("http://localhost:5000/api/order", {
+                    formData,
+                    userID: user.userID,
+                    totalPrice,
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    if (res.data.success) {
+                        axios
+                            .post("http://localhost:5000/api/stripe", {
+                                token,
+                                orderID: res.data.paymentId,
+                                userID: user.userID,
+                                name: user.name,
+                                totalPrice,
+                            })
+                            .then((res) => {
+                                console.log(res.data);
+                                toast(`order will be delivered in 20 mins`);
+                                setTimeout(() => {
+                                    removeAllItems();
+                                }, 3000);
+                            })
+                            .catch((err) => console.log("err", err));
+                    }
+                });
+        });
+    };
     return (
         <div className="container">
             {" "}
@@ -69,10 +109,16 @@ const CartTotals = ({
                             </button>
                         </Link>
                         {form ? (
-                            <Payments
-                                totalPrice={totalPrice}
-                                removeAllItems={removeAllItems}
-                            />
+                            formData.payment === "Online" ? (
+                                <Payments finishCheckout={finishCheckout} />
+                            ) : (
+                                <button
+                                    onClick={() => finishCheckout(null)}
+                                    className="btn btn-outline-success text-uppercase mb-3 mx-3 px-5"
+                                    type="button">
+                                    Finish
+                                </button>
+                            )
                         ) : (
                             <button
                                 onClick={openModal}

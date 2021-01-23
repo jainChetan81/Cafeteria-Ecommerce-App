@@ -1,21 +1,19 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const orderSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-    },
-    tokenId: String,
+const paymentSchema = new Schema({
+    email: String,
+    name: String,
+    orgName: String,
+    empId: String,
+    mobile: String,
+    image: String,
     _user: { type: Schema.Types.ObjectId, ref: "User" },
-    totalAmount: {
-        type: String,
-        required: true,
-    },
+    order: Object,
     createdAt: {
         type: Date,
         default: Date.now(),
     },
 });
 
-mongoose.model("Order", orderSchema);
+mongoose.model("Order", paymentSchema);
