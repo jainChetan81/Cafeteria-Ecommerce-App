@@ -12,12 +12,14 @@ export default class App extends Component {
         loading: true,
         filteredItems: [],
         searchString: "",
+        user: {},
     };
 
     async componentDidMount() {
         this.setState({ loading: true });
         let items = await db.items.toArray();
         let allCart = await db.cart.toArray();
+        let user = await db.token.toArray();
         let updatedItems = [...items];
         if (items.length === 0)
             storeProducts.forEach((item) =>
@@ -27,6 +29,7 @@ export default class App extends Component {
             items: updatedItems,
             cart: allCart,
             loading: false,
+            user: user[0],
         });
         if (items.length === 0) this.addToIndexDB(updatedItems, "items");
     }
@@ -121,15 +124,15 @@ export default class App extends Component {
     };
 
     render() {
-        const { items, cart } = this.state;
+        const { items, cart, user } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Chetan Store!</h1>
                     <Link
-                        to="/checkout"
+                        to={`${user?.token ? "/checkout" : "/login"}`}
                         className="cart_button videoSidebar__button">
-                        Cart : {cart.length}
+                        {user?.token ? `Cart : ${cart.length}` : "Login"}
                     </Link>
                 </header>
                 <Form

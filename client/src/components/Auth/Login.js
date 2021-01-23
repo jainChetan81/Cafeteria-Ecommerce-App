@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import db from "../../Database/IndexDB";
+import Dashboard from "../../Container/Dashboard";
+import Spinner from "../Spinner/Spinner";
 const route = "http://localhost:5000";
 
 class Login extends Component {
@@ -27,10 +29,9 @@ class Login extends Component {
             })
             // .then((res) => res.json())
             .then((res) => {
-                console.log("json in login.jsx", res);
                 if (res.data.success) {
                     this.setState({
-                        logInError: res.data.message,
+                        Error: res.data.message,
                         isLoading: false,
                         token: res.data.user.token,
                     });
@@ -38,20 +39,18 @@ class Login extends Component {
                     db.token
                         .add(res.data.user)
                         .catch((err) => console.error("err in token", err));
+                    this.props.history.push("/");
                 } else
                     this.setState({
-                        logInError: res.data.message,
+                        Error: res.data.message,
                         isLoading: true,
                     });
             });
     };
     render() {
-        const { isLoading, Name, Password, token } = this.state;
+        const { isLoading, Name, Password } = this.state;
         if (isLoading) {
-            return <p>Loading...</p>;
-        }
-        if (token) {
-            return <div className="bg-dark text-white">Logged in</div>;
+            return <Spinner />;
         }
         return (
             <div className="container">
@@ -101,7 +100,11 @@ class Login extends Component {
                             className="form-submit button-auth">
                             Log In
                         </button>
-                        <Link to="/signup">Sign Up</Link>
+                        <Link
+                            className="form-submit button-auth mx-3"
+                            to="/signup">
+                            Sign Up
+                        </Link>
                     </div>
                 </form>
             </div>

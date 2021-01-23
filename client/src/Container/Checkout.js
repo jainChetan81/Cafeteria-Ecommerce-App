@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 class Checkout extends Component {
     state = {
         cart: [],
-        books: [],
+        items: [],
         loading: true,
         totalPrice: 0,
         payed: false,
@@ -21,13 +21,13 @@ class Checkout extends Component {
     async componentDidMount() {
         this.setState({ loading: true });
         let allCart = await db.cart.toArray();
-        let books = await db.books.toArray();
+        let items = await db.items.toArray();
         this.totalPrice(allCart);
 
         return this.setState({
             cart: allCart,
             loading: false,
-            books,
+            items,
         });
     }
 
@@ -112,7 +112,8 @@ class Checkout extends Component {
         const { cart, payed } = this.state;
         return (
             <div className="App">
-                <header className="App-header">
+                aaasas
+                {/* <header className="App-header">
                     <h1 className="App-title">Chetan Book Store!</h1>
                     <Link to="/" className="cart_button videoSidebar__button">
                         Products
@@ -155,7 +156,7 @@ class Checkout extends Component {
                         draggable={false}
                         pauseOnHover={false}
                     />
-                </React.Fragment>
+                </React.Fragment> */}
             </div>
         );
     }

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import db from "../../Database/IndexDB";
+import { Link } from "react-router-dom";
+import Spinner from "../Spinner/Spinner";
 const route = "http://localhost:5000";
 
 class Signup extends Component {
@@ -49,7 +51,7 @@ class Signup extends Component {
     render() {
         const { isLoading, Name, Password, Password2, Error } = this.state;
         if (isLoading) {
-            return <p>Loading...</p>;
+            return <Spinner />;
         }
         return (
             <div className="container">
@@ -105,9 +107,14 @@ class Signup extends Component {
                             type="submit"
                             name="signup"
                             id="signup"
-                            className="btn btn-inlinebutton-auth">
+                            className="btn btn-inline button-auth">
                             Sign Up
                         </button>
+                        <Link
+                            className="form-submit button-auth mx-3"
+                            to="/login">
+                            Sign Up
+                        </Link>
                     </div>
                 </form>
             </div>

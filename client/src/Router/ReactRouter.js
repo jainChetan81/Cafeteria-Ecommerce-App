@@ -1,39 +1,78 @@
-import React, { Component } from "react";
-import { Redirect, Route, Switch, withRouter } from "react-router-dom";
-import NotFound from "../Container/NotFound.js";
+import React, { Suspense, Component } from "react";
+import {
+    Redirect,
+    Route,
+    Switch,
+    withRouter,
+    BrowserRouter as Router,
+} from "react-router-dom";
+import Dashboard from "../Container/Dashboard";
+import Checkout from "../Container/Checkout";
+import Login from "../components/Auth/Login";
+import Signup from "../components/Auth/Signup";
 import db from "../Database/IndexDB.js";
-import { routes, authRoutes } from "./routes.js";
+// import { routes, authRoutes } from "./routes.js";
 
 class ReactRouter extends Component {
     state = { token: "" };
-    async componentDidMount() {
-        let user = await db.token.toArray();
-        console.log("user[0].token", user);
-        if (user.length > 0) this.setState({ token: user[0].token });
-    }
-    getRoutes = () => {
-        let allRoutes = [...authRoutes];
-        if (this.state.token) allRoutes = [...routes];
-
-        return allRoutes.map((prop, index) => {
-            if (prop.layout === "/")
-                return (
-                    <Route
-                        path={prop.layout + prop.path}
-                        component={prop.component}
-                        key={index}
-                    />
-                );
+    componentDidMount() {
+        db.token.toArray().then((user) => {
+            console.log("user[0].token", user);
+            if (user.length > 0) this.setState({ token: user[0].token });
+            else this.checkForToken();
         });
+    }
+    checkForToken = () => {
+        setInterval(() => {
+            db.token.toArray().then((user) => {
+                console.log("user[0].token", user);
+                if (user.length > 0) this.setState({ token: user[0].token });
+            });
+        }, 3000);
     };
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextState.token !== this.state.token;
+    }
+    // getRoutes = () => {
+    //     let allRoutes = [...authRoutes];
+    //     if (this.state.token) allRoutes = [...routes];
+
+    //     return allRoutes.map((prop, index) => {
+    //         if (prop.layout === "/")
+    //             return (
+    //                 <Route
+    //                     path={prop.layout + prop.path}
+    //                     component={prop.component}
+    //                     key={index}
+    //                 />
+    //             );
+    //     });
+    // };
 
     render() {
+        const { token } = this.state;
         return (
-            <Switch>
-                {this.getRoutes()}
+            <Suspense
+                fallback={
+                    <div className="text-center m-5 text-uppercase">
+                        Loading...
+                    </div>
+                }>
+                {/* <Switch> */}
+                <Route exact path="/" component={Dashboard} />
+                {token !== "" ? (
+                    // <Switch>
+                    <Route exact path="/checkout" component={Checkout} />
+                ) : (
+                    // {/* </Switch> */}
+                    <Switch>
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/signup" component={Signup} />
+                    </Switch>
+                )}
                 <Redirect to="/" />
-                <Route component={NotFound} />
-            </Switch>
+                {/* </Switch> */}
+            </Suspense>
         );
     }
 }
