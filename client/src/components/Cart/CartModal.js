@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 class CartModal extends Component {
     state = { name: "", email: "", address: "" };
     onPurchase = () => {
+        this.props.formFilled();
         toast(
             `${this.state.name} has purchased items worth ${Math.round(
                 this.props.totalPrice * 1.1
@@ -11,15 +12,14 @@ class CartModal extends Component {
         );
         setTimeout(() => {
             this.props.onClose();
-            this.props.removeAllItems();
         }, 3000);
     };
     render() {
         const { name, email, address } = this.state;
-        const { onClose } = this.props;
+        const { onClose, employeeForm } = this.props;
         return (
             <div>
-                <div className="form-group">
+                <div className="form-group" onSubmit={employeeForm}>
                     <label>Email address</label>
                     <input
                         type="email"

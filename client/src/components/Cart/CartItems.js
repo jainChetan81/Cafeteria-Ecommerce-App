@@ -8,7 +8,7 @@ export default function CartItems({
     removeItem,
 }) {
     return cart.map((item, index) => (
-        <div key={item.bookID} className="row my-2 text-capitalize text-center">
+        <div key={item.id} className="row my-2 text-capitalize text-center">
             <div className="col-10 mx-auto col-lg-2">{index + 1}</div>
             <div className="col-10 mx-auto col-lg-2">
                 <span className="d-lg-none">product : </span>
@@ -22,13 +22,13 @@ export default function CartItems({
                 <div className="d-flex justify-content-center">
                     <span
                         className="btn btn-black mx-1"
-                        onClick={() => decrementItem(item.bookID)}>
+                        onClick={() => decrementItem(item.id)}>
                         -
                     </span>
                     <span className="btn btn-black mx-1">{item.count}</span>
                     <span
                         className="btn btn-black mx-1"
-                        onClick={() => incrementItem(item.bookID)}>
+                        onClick={() => incrementItem(item.id)}>
                         +
                     </span>
                 </div>
@@ -37,7 +37,7 @@ export default function CartItems({
                 <div
                     className="cart-icon"
                     onClick={() => {
-                        removeItem(item.bookID);
+                        removeItem(item.id);
                     }}>
                     <DeleteForeverIcon />
                 </div>

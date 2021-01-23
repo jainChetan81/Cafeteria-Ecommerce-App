@@ -13,10 +13,10 @@ class Checkout extends Component {
         items: [],
         loading: true,
         totalPrice: 0,
-        payed: false,
+        form: false,
     };
-    paymentDone = () => {
-        this.setState({ payed: true });
+    formFilled = () => {
+        this.setState({ form: true });
     };
     async componentDidMount() {
         this.setState({ loading: true });
@@ -41,42 +41,42 @@ class Checkout extends Component {
     };
     decrementItem = (id) => {
         let updatedCart = [...this.state.cart];
-        let updatedBooks = [...this.state.books];
-        const index = updatedCart.findIndex((e) => e.bookID === id);
-        const indexBooks = updatedBooks.findIndex((e) => e.bookID === id);
+        let updatedItems = [...this.state.items];
+        const index = updatedCart.findIndex((e) => e.id === id);
+        const indexItems = updatedItems.findIndex((e) => e.id === id);
         if (updatedCart[index].count === 1) return this.removeItem(id);
         updatedCart[index].count -= 1;
-        updatedBooks[indexBooks].count -= 1;
+        updatedItems[indexItems].count -= 1;
         this.totalPrice(updatedCart);
         this.setState({
-            books: updatedBooks,
+            items: updatedItems,
             cart: updatedCart,
         });
 
         db.cart
             .update(id, { count: updatedCart[index].count })
             .catch((err) => console.error("err4", err));
-        db.books
-            .update(id, { count: updatedBooks[indexBooks].count })
+        db.items
+            .update(id, { count: updatedItems[indexItems].count })
             .catch((err) => console.error("err5", err));
     };
     removeAllItems = () => {
         let cart = [...this.state.cart];
         console.log("cart", cart);
         cart.forEach((item) => {
-            this.removeItem(item.bookID);
+            this.removeItem(item.id);
         });
         this.props.history.push("/");
     };
     incrementItem = (id) => {
         let updatedCart = [...this.state.cart];
-        let updatedBooks = [...this.state.books];
-        const index = updatedCart.findIndex((e) => e.bookID === id);
-        const indexBooks = updatedBooks.findIndex((e) => e.bookID === id);
+        let updatedItems = [...this.state.items];
+        const index = updatedCart.findIndex((e) => e.id === id);
+        const indexItems = updatedItems.findIndex((e) => e.id === id);
         updatedCart[index].count += 1;
-        updatedBooks[indexBooks].count += 1;
+        updatedItems[indexItems].count += 1;
         this.setState({
-            books: updatedBooks,
+            items: updatedItems,
             cart: updatedCart,
         });
         this.totalPrice(updatedCart);
@@ -84,37 +84,36 @@ class Checkout extends Component {
         db.cart
             .update(id, { count: updatedCart[index].count })
             .catch((err) => console.error("err4", err));
-        db.books
-            .update(id, { count: updatedBooks[indexBooks].count })
+        db.items
+            .update(id, { count: updatedItems[indexItems].count })
             .catch((err) => console.error("err5", err));
     };
     removeItem = (id) => {
         let updatedCart = [...this.state.cart];
-        let updatedBooks = [...this.state.books];
-        const index = updatedCart.findIndex((e) => e.bookID === id);
-        const indexBooks = updatedBooks.findIndex((e) => e.bookID === id);
+        let updatedItems = [...this.state.items];
+        const index = updatedCart.findIndex((e) => e.id === id);
+        const indexItems = updatedItems.findIndex((e) => e.id === id);
         console.log(updatedCart);
         updatedCart.splice(index, 1);
-        updatedBooks[indexBooks].inCart = false;
-        updatedBooks[indexBooks].count = 0;
+        updatedItems[indexItems].inCart = false;
+        updatedItems[indexItems].count = 0;
         this.totalPrice(updatedCart);
         this.setState({
-            books: updatedBooks,
+            items: updatedItems,
             cart: updatedCart,
         });
 
         db.cart.delete(id).catch((err) => console.error("err7", err));
-        db.books
+        db.items
             .update(id, { inCart: false, count: 0 })
             .catch((err) => console.error("err8", err));
     };
     render() {
-        const { cart, payed } = this.state;
+        const { cart, form } = this.state;
         return (
             <div className="App">
-                aaasas
-                {/* <header className="App-header">
-                    <h1 className="App-title">Chetan Book Store!</h1>
+                <header className="App-header">
+                    <h1 className="App-title">Chetan Online Store!</h1>
                     <Link to="/" className="cart_button videoSidebar__button">
                         Products
                     </Link>
@@ -142,8 +141,8 @@ class Checkout extends Component {
                     <CartTotals
                         removeAllItems={this.removeAllItems}
                         totalPrice={this.state.totalPrice}
-                        payed={payed}
-                        paymentDone={this.paymentDone}
+                        form={form}
+                        formFilled={this.formFilled}
                     />
                     <ToastContainer
                         position="bottom-left"
@@ -156,7 +155,7 @@ class Checkout extends Component {
                         draggable={false}
                         pauseOnHover={false}
                     />
-                </React.Fragment> */}
+                </React.Fragment>
             </div>
         );
     }

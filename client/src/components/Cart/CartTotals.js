@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CartTotals = ({ removeAllItems, totalPrice, payed, paymentDone }) => {
+const CartTotals = ({ removeAllItems, totalPrice, form, formFilled }) => {
     const [modalStyle] = React.useState(getModalStyle);
     const [show, showModal] = useState(false);
     const classes = useStyles();
@@ -43,6 +43,8 @@ const CartTotals = ({ removeAllItems, totalPrice, payed, paymentDone }) => {
             <Modal open={show}>
                 <div style={modalStyle} className={classes.paper}>
                     <CartModal
+                        totalPrice={totalPrice}
+                        formFilled={formFilled}
                         removeAllItems={removeAllItems}
                         onClose={closeModal}
                         totalPrice={totalPrice}
@@ -60,18 +62,18 @@ const CartTotals = ({ removeAllItems, totalPrice, payed, paymentDone }) => {
                                 clear cart
                             </button>
                         </Link>
-                        {payed ? (
+                        {form ? (
+                            <Payments
+                                totalPrice={totalPrice}
+                                removeAllItems={removeAllItems}
+                            />
+                        ) : (
                             <button
                                 onClick={openModal}
                                 className="btn btn-outline-success text-uppercase mb-3 mx-3 px-5"
                                 type="button">
                                 Checkout
                             </button>
-                        ) : (
-                            <Payments
-                                totalPrice={totalPrice}
-                                paymentDone={paymentDone}
-                            />
                         )}
 
                         <h5>
