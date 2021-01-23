@@ -9,6 +9,7 @@ const bodyParser = require("body-parser"),
 require("./models/User");
 const authRoutes = require("./routes/authRoutes");
 const requireAuth = require("./middlewares/requireAuth");
+const billingRoutes = require("./routes/billingRoutes");
 
 const app = express();
 app.use(cors());
@@ -30,10 +31,7 @@ mongoose.connection.on("connected", () => {
 });
 
 app.use("/api/account", authRoutes);
-
-app.get("/", requireAuth, (req, res) => {
-    res.send(`Your Name : ${req.user.name}`);
-});
+app.use("/api/stripe", billingRoutes);
 
 app.listen(PORT, () => {
     console.log("server is running on port:", PORT);

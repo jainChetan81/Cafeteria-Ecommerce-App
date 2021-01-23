@@ -1,14 +1,31 @@
 import React, { Component } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { toast } from "react-toastify";
+import axios from "axios";
+import db from "../Database/IndexDB";
 
 class Payments extends Component {
     onToken = (token) => {
-        console.log("token of stripe is :", token);
-        toast(`order will be delivered in 20 mins`);
-        setTimeout(() => {
-            this.props.removeAllItems();
-        }, 3000);
+        let user = {};
+        db.token.toArray().then((currentUser) => {
+            console.log("user[0].token", user);
+            if (currentUser.length > 0) user = currentUser[0];
+            axios
+                .post("http://localhost:5000/api/stripe", {
+                    token,
+                    userID: user.userID,
+                    name: user.name,
+                    totalPrice: this.props.totalPrice,
+                })
+                .then((res) => {
+                    console.log(res.data);
+                    toast(`order will be delivered in 20 mins`);
+                    setTimeout(() => {
+                        this.props.removeAllItems();
+                    }, 3000);
+                })
+                .catch((err) => console.log("err", err));
+        });
     };
     render() {
         return (

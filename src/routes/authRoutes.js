@@ -60,7 +60,7 @@ Router.post("/login", async (req, res) => {
                 const token = getToken(user._id);
                 res.send({
                     success: true,
-                    user: { token, name: user.name },
+                    user: { token, name: user.name, userID: user._id },
                     message: "Valid sign in",
                 });
             }

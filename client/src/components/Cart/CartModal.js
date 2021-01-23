@@ -6,13 +6,11 @@ class CartModal extends Component {
     onPurchase = () => {
         this.props.formFilled();
         toast(
-            `${this.state.name} has purchased items worth ${Math.round(
+            `${this.state.name} has to pay for items worth  $${Math.round(
                 this.props.totalPrice * 1.1
-            )}`
+            )} `
         );
-        setTimeout(() => {
-            this.props.onClose();
-        }, 3000);
+        this.props.onClose();
     };
     render() {
         const { name, email, address } = this.state;

@@ -62,7 +62,6 @@ class Checkout extends Component {
     };
     removeAllItems = () => {
         let cart = [...this.state.cart];
-        console.log("cart", cart);
         cart.forEach((item) => {
             this.removeItem(item.id);
         });
@@ -93,7 +92,6 @@ class Checkout extends Component {
         let updatedItems = [...this.state.items];
         const index = updatedCart.findIndex((e) => e.id === id);
         const indexItems = updatedItems.findIndex((e) => e.id === id);
-        console.log(updatedCart);
         updatedCart.splice(index, 1);
         updatedItems[indexItems].inCart = false;
         updatedItems[indexItems].count = 0;
