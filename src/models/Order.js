@@ -10,7 +10,7 @@ const paymentSchema = new Schema({
     image: String,
     _user: { type: Schema.Types.ObjectId, ref: "User" },
     order: Object,
-    createdAt: {
+    RegistrationDate: {
         type: Date,
         default: Date.now(),
     },

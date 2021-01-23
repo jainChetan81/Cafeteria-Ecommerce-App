@@ -34,6 +34,7 @@ const CartTotals = ({
     form,
     formSubmit,
     formData,
+    userID,
 }) => {
     const [modalStyle] = React.useState(getModalStyle);
     const [show, showModal] = useState(false);
@@ -76,7 +77,7 @@ const CartTotals = ({
                                 toast(`order will be delivered in 20 mins`);
                                 setTimeout(() => {
                                     removeAllItems();
-                                }, 3000);
+                                }, 1000);
                             })
                             .catch((err) => console.log("err", err));
                     }
@@ -96,7 +97,9 @@ const CartTotals = ({
                     />
                 </div>
             </Modal>
-            {formData.name !== undefined && <InfoTable formData={formData} />}
+            {formData.name !== undefined && (
+                <InfoTable formData={formData} userID={userID} />
+            )}
             {totalPrice > 0 && (
                 <div className="row">
                     <div className="col-10 mt-2 ml-sm-5 ml-md-auto col-sm-8 text-capitalize text-right">

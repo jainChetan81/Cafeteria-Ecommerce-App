@@ -15,6 +15,7 @@ class Checkout extends Component {
         totalPrice: 0,
         form: false,
         formData: {},
+        userID: "",
     };
     formSubmit = (e, imageURI) => {
         e.preventDefault();
@@ -34,12 +35,14 @@ class Checkout extends Component {
         this.setState({ loading: true });
         let allCart = await db.cart.toArray();
         let items = await db.items.toArray();
+        let user = await db.token.toArray();
         this.totalPrice(allCart);
 
         return this.setState({
             cart: allCart,
             loading: false,
             items,
+            userID: user[0].userID,
         });
     }
 
@@ -122,7 +125,7 @@ class Checkout extends Component {
             .catch((err) => console.error("err8", err));
     };
     render() {
-        const { cart, form, formData } = this.state;
+        const { cart, form, formData, userID } = this.state;
         return (
             <div className="App">
                 <header className="App-header">
@@ -153,6 +156,7 @@ class Checkout extends Component {
                     )}
                     <CartTotals
                         formData={formData}
+                        userID={userID}
                         removeAllItems={this.removeAllItems}
                         totalPrice={this.state.totalPrice}
                         form={form}

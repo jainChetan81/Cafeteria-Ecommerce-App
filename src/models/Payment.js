@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const paymentSchema = new Schema({
-    createdAt: {
+    RegistrationDate: {
         type: Date,
         default: Date.now(),
     },

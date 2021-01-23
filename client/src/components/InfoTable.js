@@ -1,9 +1,13 @@
 import React from "react";
 
-function InfoTable({ formData }) {
+function InfoTable({ formData, userID }) {
     return (
         <table className="table table-striped table-dark">
             <tbody>
+                <tr>
+                    <th scope="row">Registration ID</th>
+                    <td>{userID}</td>
+                </tr>
                 <tr>
                     <th scope="row">ID Card</th>
                     <td>
