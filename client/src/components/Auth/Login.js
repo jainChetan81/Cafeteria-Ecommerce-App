@@ -8,7 +8,7 @@ const route = "http://localhost:5000";
 class Login extends Component {
     state = {
         isLoading: false,
-        Error: "",
+        error: "",
         Name: "",
         Password: "",
         token: "",
@@ -17,10 +17,15 @@ class Login extends Component {
     onLogIn = (e) => {
         e.preventDefault();
         const { Name, Password } = this.state;
-        if (!Name || !Password) {
-            alert("Please fill out the form");
+        this.setState({ isLoading: true });
+        if (Name.length === 0 || !Password.length === 0) {
+            this.setState({
+                error: "Please fill out the form",
+                isLoading: false,
+            });
             return;
         }
+
         axios
             .post(`${route}/api/account/login`, {
                 name: Name,
@@ -30,7 +35,7 @@ class Login extends Component {
             .then((res) => {
                 if (res.data.success) {
                     this.setState({
-                        Error: res.data.message,
+                        error: "",
                         isLoading: false,
                         token: res.data.user.token,
                     });
@@ -41,22 +46,28 @@ class Login extends Component {
                     this.props.history.push("/");
                 } else
                     this.setState({
-                        Error: res.data.message,
-                        isLoading: true,
+                        error: "Error in Logging in",
+                        isLoading: false,
                     });
-            });
+            })
+            .catch((err) =>
+                this.setState({
+                    error: "Error in Logging in",
+                    isLoading: false,
+                })
+            );
     };
     render() {
-        const { isLoading, Name, Password } = this.state;
+        const { isLoading, Name, Password, error } = this.state;
         if (isLoading) {
             return <Spinner />;
         }
         return (
-            <div className="container">
-                <h2 className="form-title">Log in</h2>
-                {/* <p className="m-auto text-danger">
-                                {Error ? { Error } : null}
-                            </p> */}
+            <div className="container" style={{ marginTop: 100 }}>
+                <h2 className="form-title text-center my-5">Log in</h2>
+                <p className="lead text-center my-5 text-danger">
+                    {error !== "" ? error : null}
+                </p>
                 <form
                     className="register-form"
                     id="register-form"
@@ -100,9 +111,9 @@ class Login extends Component {
                             Log In
                         </button>
                         <Link
-                            className="form-submit button-auth mx-3"
+                            className="form-submit button-auth ml-1"
                             to="/signup">
-                            Sign Up
+                            Go To Sign Up
                         </Link>
                     </div>
                 </form>

@@ -8,7 +8,7 @@ const route = "http://localhost:5000";
 class Signup extends Component {
     state = {
         isLoading: false,
-        Error: "",
+        error: "",
         Name: "",
         Password: "",
         Password2: "",
@@ -17,11 +17,14 @@ class Signup extends Component {
     onSignUp = (event) => {
         event.preventDefault();
         const { Name, Password, Password2 } = this.state;
+        this.setState({ isLoading: true });
         if (!Name || !Password || !Password2 || Password2 !== Password) {
-            console.warn(" all the forms are not filled");
+            this.setState({
+                error: "Please fill out the form properly",
+                isLoading: false,
+            });
             return;
         }
-        console.log(Name, Password, Password2);
         axios
             .post(`${route}/api/account/signup`, {
                 name: Name,
@@ -32,7 +35,7 @@ class Signup extends Component {
                 console.log("json", res); //json is the object that is returned
                 if (res.data.success) {
                     this.setState({
-                        Error: res.data.message,
+                        error: "",
                         isLoading: false,
                         token: res.data.user.token,
                     });
@@ -42,21 +45,29 @@ class Signup extends Component {
                         .catch((err) => console.error("err in token", err));
                 } else {
                     this.setState({
-                        Error: res.data.message,
-                        isLoading: true,
+                        error: "Error in Logging in",
+                        isLoading: false,
                     });
                 }
-            });
+            })
+            .catch((err) =>
+                this.setState({
+                    error: "Error in Logging in",
+                    isLoading: false,
+                })
+            );
     };
     render() {
-        const { isLoading, Name, Password, Password2, Error } = this.state;
+        const { isLoading, Name, Password, Password2, error } = this.state;
         if (isLoading) {
             return <Spinner />;
         }
         return (
-            <div className="container">
-                <h3 className="form-title">Sign up</h3>
-                <p className="m-auto text-danger">{Error ? { Error } : null}</p>
+            <div className="container" style={{ marginTop: 70 }}>
+                <h2 className="form-title text-center my-5">Sign up</h2>
+                <p className="lead text-center my-5 text-danger">
+                    {error !== "" ? error : null}
+                </p>
                 <form className="register-form" onSubmit={this.onSignUp}>
                     <div className="form-group">
                         <input
@@ -113,7 +124,7 @@ class Signup extends Component {
                         <Link
                             className="form-submit button-auth mx-3"
                             to="/login">
-                            Sign Up
+                            Log In
                         </Link>
                     </div>
                 </form>

@@ -52,7 +52,7 @@ App {
     cursor: pointer;
 }
 
-.button-auth[type="submit"] {
+.button-auth {
     background-color: #4c566a;
     color: white;
     font-size: 14px;
