@@ -3,7 +3,6 @@ import axios from "axios";
 import db from "../../Database/IndexDB";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
-const route = "http://localhost:5000";
 
 class Signup extends Component {
     state = {
@@ -26,7 +25,7 @@ class Signup extends Component {
             return;
         }
         axios
-            .post(`${route}/api/account/signup`, {
+            .post(`/api/account/signup`, {
                 name: Name,
                 password: Password,
             })

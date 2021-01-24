@@ -11,6 +11,7 @@
         "axios": "^0.20.0",
         "bootstrap": "^4.5.2",
         "dexie": "^3.0.3",
+        "http-proxy-middleware": "^0.19.1",
         "moment": "^2.29.1",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
