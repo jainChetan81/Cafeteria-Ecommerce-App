@@ -13,7 +13,7 @@ class OrderHistory extends Component {
             this.setState({ user: user[0] });
             if (user.length > 0)
                 axios
-                    .get("/api/order", {
+                    .get("http://localhost:5000/api/order", {
                         params: { userID: user[0].userID },
                     })
                     .then((res) => {

@@ -25,7 +25,7 @@ class Signup extends Component {
             return;
         }
         axios
-            .post(`/api/account/signup`, {
+            .post(`http://localhost:5000/api/account/signup`, {
                 name: Name,
                 password: Password,
             })

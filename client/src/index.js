@@ -7,7 +7,7 @@ import ReactRouter from "./Router/ReactRouter";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-    <BrowserRouter basename="">
+    <BrowserRouter basename="/">
         <ReactRouter />
     </BrowserRouter>,
     document.getElementById("root")
