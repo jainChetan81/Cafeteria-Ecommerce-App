@@ -42,16 +42,17 @@ class Signup extends Component {
                     db.token
                         .add(res.data.user)
                         .catch((err) => console.error("err in token", err));
+                    this.props.history.push("/");
                 } else {
                     this.setState({
-                        error: "Error in Logging in",
+                        error: "Error in Signing Up",
                         isLoading: false,
                     });
                 }
             })
             .catch((err) =>
                 this.setState({
-                    error: "Error in Logging in",
+                    error: "Error in Signing U",
                     isLoading: false,
                 })
             );
