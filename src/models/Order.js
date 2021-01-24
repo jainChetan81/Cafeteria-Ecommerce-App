@@ -8,6 +8,7 @@ const paymentSchema = new Schema({
     empId: String,
     mobile: String,
     image: String,
+    totalAmount: String,
     _user: { type: Schema.Types.ObjectId, ref: "User" },
     order: Object,
     RegistrationDate: {

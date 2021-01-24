@@ -5,6 +5,7 @@ import Checkout from "../Container/Checkout";
 import Login from "../components/Auth/Login";
 import Signup from "../components/Auth/Signup";
 import db from "../Database/IndexDB.js";
+import OrderHistory from "../Container/OrderHistory";
 // import { routes, authRoutes } from "./routes.js";
 
 class ReactRouter extends Component {
@@ -54,10 +55,15 @@ class ReactRouter extends Component {
                 {/* <Switch> */}
                 <Route exact path="/" component={Dashboard} />
                 {token !== "" ? (
-                    // <Switch>
-                    <Route exact path="/checkout" component={Checkout} />
+                    <Switch>
+                        <Route exact path="/checkout" component={Checkout} />
+                        <Route
+                            exact
+                            path="/orderhistory"
+                            component={OrderHistory}
+                        />
+                    </Switch>
                 ) : (
-                    // {/* </Switch> */}
                     <Switch>
                         <Route exact path="/login" component={Login} />
                         <Route exact path="/signup" component={Signup} />

@@ -5,8 +5,8 @@ const express = require("express");
 require("../models/Payment");
 const Payment = mongoose.model("Payment");
 const Router = express.Router();
-const requireAuth = require("../middlewares/requireAuth");
-Router.use(requireAuth);
+// const requireAuth = require("../middlewares/requireAuth");
+// Router.use(requireAuth);
 
 Router.post("/", (req, res) => {
     const { token, userID, name, totalPrice, orderID } = req.body;

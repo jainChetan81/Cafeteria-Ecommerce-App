@@ -162,6 +162,13 @@ export default class App extends Component {
                             Signup
                         </Link>
                     )}
+                    {user && (
+                        <Link
+                            to="/orderhistory"
+                            className="cart_button videoSidebar__button">
+                            Order History
+                        </Link>
+                    )}
                     <Link
                         to={`${user ? "/checkout" : "/login"}`}
                         className="cart_button videoSidebar__button">

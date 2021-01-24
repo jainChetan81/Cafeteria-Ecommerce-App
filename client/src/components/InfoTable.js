@@ -13,7 +13,7 @@ function InfoTable({ formData, userID }) {
                     <td>
                         <img
                             src={formData.image}
-                            style={{ width: "6rem", height: "4rem" }}
+                            style={{ width: "10rem", height: "7rem" }}
                             alt="product"
                             className="img-fluid ml-4"
                         />

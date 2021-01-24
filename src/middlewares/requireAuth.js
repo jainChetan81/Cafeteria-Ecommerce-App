@@ -5,6 +5,7 @@ const keys = require("../config/keys");
 
 module.exports = (req, res, next) => {
     const { authorization } = req.headers;
+    console.log("authorization", authorization);
     if (!authorization)
         res.status(401).send({ error: "You must be logged in" });
     if (authorization) {

@@ -63,7 +63,6 @@ class CartModal extends Component {
                         name="email"
                         className="form-control"
                         placeholder="Enter email"
-                        defaultValue="email@e"
                     />
                     <small className="form-text text-muted">
                         We'll never share your email with anyone else.
