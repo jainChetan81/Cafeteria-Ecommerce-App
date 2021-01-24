@@ -8,6 +8,6 @@ db.version(1).stores({
 });
 
 db.open().catch((err) => {
-    console.log(err.stack || err);
+    console.error(err.stack || err);
 });
 export default db;

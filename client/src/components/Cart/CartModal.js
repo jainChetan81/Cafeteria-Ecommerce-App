@@ -25,7 +25,6 @@ class CartModal extends Component {
     };
 
     getFile = (e) => {
-        console.log(e);
 
         let reader = new FileReader();
         reader.readAsDataURL(e[0]);

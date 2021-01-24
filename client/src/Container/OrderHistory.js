@@ -17,16 +17,6 @@ class OrderHistory extends Component {
                         params: { userID: user[0].userID },
                     })
                     .then((res) => {
-                        console.log(res.data);
-                        console.log(
-                            moment(res.data.orders[0].createdAt),
-                            moment(res.data.orders[0].createdAt).add(20, "m"),
-                            moment(res.data.orders[0].createdAt)
-                                .add(14, "h")
-                                .add(20, "m")
-                                .fromNow()
-                        );
-
                         if (res.data.orders.length > 0) {
                             this.setState({
                                 orders: res.data.orders,
@@ -40,7 +30,6 @@ class OrderHistory extends Component {
 
     timeRemaining = (createdAt) => {
         const time = moment(createdAt).add(20, "m").fromNow();
-        console.log("time", time);
         if (time[0] === "i") {
             return (
                 <p className="text-left ">
@@ -67,7 +56,6 @@ class OrderHistory extends Component {
             .delete(this.state.user.token)
             .then(() => {
                 this.setState({ user: {} });
-                console.log("user has been logged out");
                 window.location.reload();
             })
             .catch((err) => console.error("err in logout", err));
@@ -102,7 +90,7 @@ class OrderHistory extends Component {
                                 margin: "10px auto",
                                 boxSizing: "border-box",
                             }}>
-                            <h5 className="text-left">Emp Info</h5>
+                            <h5 className="text-center">Order Info</h5>
                             <div className="row">
                                 <div className="col-2">
                                     <i>Email Id: </i>{" "}

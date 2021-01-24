@@ -12,7 +12,6 @@ class ReactRouter extends Component {
     state = { token: "" };
     componentDidMount() {
         db.token.toArray().then((user) => {
-            console.log("user[0].token", user);
             if (user.length > 0) this.setState({ token: user[0].token });
             else this.checkForToken();
         });

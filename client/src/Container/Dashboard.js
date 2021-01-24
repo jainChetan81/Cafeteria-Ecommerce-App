@@ -57,7 +57,6 @@ export default class App extends Component {
             .delete(this.state.user.token)
             .then(() => {
                 this.setState({ user: {} });
-                console.log("user has benn logged out");
                 window.location.reload();
             })
             .catch((err) => console.error("err in logout", err));
@@ -137,9 +136,6 @@ export default class App extends Component {
                 }
             }
         }
-        items.forEach((e) => {
-            console.log(e.ratings);
-        });
         this.setState({ items });
     };
 

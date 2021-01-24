@@ -49,10 +49,8 @@ const CartTotals = ({
     };
 
     const finishCheckout = (token) => {
-        console.log("token", token);
         let user = {};
         db.token.toArray().then((currentUser) => {
-            console.log("user[0].token", user);
             if (currentUser.length > 0) user = currentUser[0];
             formData.image = "";
             axios
@@ -62,7 +60,6 @@ const CartTotals = ({
                     totalPrice,
                 })
                 .then((res) => {
-                    console.log(res.data);
                     if (res.data.success) {
                         axios
                             .post("http://localhost:5000/api/stripe", {
@@ -73,7 +70,6 @@ const CartTotals = ({
                                 totalPrice,
                             })
                             .then((res) => {
-                                console.log(res.data);
                                 toast(`order will be delivered in 20 mins`);
                                 setTimeout(() => {
                                     removeAllItems();

@@ -28,7 +28,6 @@ class Checkout extends Component {
             payment: e.target.payment.value,
             image: imageURI,
         };
-        console.log("formData", formData);
         this.setState({ form: true, formData });
     };
     async componentDidMount() {

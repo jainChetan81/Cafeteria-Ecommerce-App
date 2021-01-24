@@ -31,7 +31,6 @@ class Signup extends Component {
             })
             // .then((res) => res.json())
             .then((res) => {
-                console.log("json", res); //json is the object that is returned
                 if (res.data.success) {
                     this.setState({
                         error: "",
