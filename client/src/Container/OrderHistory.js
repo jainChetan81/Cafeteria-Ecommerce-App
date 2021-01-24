@@ -78,7 +78,7 @@ class OrderHistory extends Component {
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1 className="App-title">Chetan Store!</h1>
+                    <h1 className="App-title">Chetan Cafeteria Store!</h1>
                     <Link to="/" className="cart_button videoSidebar__button">
                         Products
                     </Link>
