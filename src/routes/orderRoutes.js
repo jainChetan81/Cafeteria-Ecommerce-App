@@ -3,6 +3,8 @@ const express = require("express");
 require("../models/Order");
 const Order = mongoose.model("Order");
 const Router = express.Router();
+const requireAuth = require("../middlewares/requireAuth");
+Router.use(requireAuth);
 
 Router.post("/", (req, res) => {
     const { formData, userID, totalPrice } = req.body;

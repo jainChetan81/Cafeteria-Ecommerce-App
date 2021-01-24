@@ -19,7 +19,6 @@ class ReactRouter extends Component {
     checkForToken = () => {
         setInterval(() => {
             db.token.toArray().then((user) => {
-                console.log("user[0].token", user);
                 if (user.length > 0) this.setState({ token: user[0].token });
             });
         }, 3000);

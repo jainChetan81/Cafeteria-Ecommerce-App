@@ -21,7 +21,6 @@ export default class App extends Component {
         let allCart = await db.cart.toArray();
         let user = await db.token.toArray();
         let updatedItems = [...items];
-        console.log(items === storeProducts);
         if (items.length === 0)
             storeProducts.forEach((item) =>
                 updatedItems.push({ ...item, inCart: false, count: 0 })
@@ -43,6 +42,7 @@ export default class App extends Component {
         });
         if (items.length === 0) this.addToIndexDB(updatedItems, "items");
     }
+
     addToIndexDB(items, key) {
         items.forEach((item) => {
             db[key]
@@ -51,6 +51,17 @@ export default class App extends Component {
                 .catch((err) => console.log("err in storing items", err));
         });
     }
+
+    onLogout = () => {
+        db.token
+            .delete(this.state.user.token)
+            .then(() => {
+                this.setState({ user: {} });
+                console.log("user has benn logged out");
+                window.location.reload();
+            })
+            .catch((err) => console.error("err in logout", err));
+    };
 
     getItems = (e) => {
         this.setState({ loading: true });
@@ -138,10 +149,23 @@ export default class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Chetan Store!</h1>
+                    {user ? (
+                        <button
+                            onClick={this.onLogout}
+                            className="cart_button videoSidebar__button">
+                            Logout
+                        </button>
+                    ) : (
+                        <Link
+                            to="/signup"
+                            className="cart_button videoSidebar__button">
+                            Signup
+                        </Link>
+                    )}
                     <Link
-                        to={`${user?.token ? "/checkout" : "/login"}`}
+                        to={`${user ? "/checkout" : "/login"}`}
                         className="cart_button videoSidebar__button">
-                        {user?.token ? `Cart : ${cart.length}` : "Login"}
+                        {user ? `Cart : ${cart.length}` : "Login"}
                     </Link>
                 </header>
                 <Form
