@@ -21,10 +21,20 @@ export default class App extends Component {
         let allCart = await db.cart.toArray();
         let user = await db.token.toArray();
         let updatedItems = [...items];
+        console.log(items === storeProducts);
         if (items.length === 0)
             storeProducts.forEach((item) =>
                 updatedItems.push({ ...item, inCart: false, count: 0 })
             );
+        // else {
+        //     if (items !== storeProducts) {
+        //         items = [];
+        //         updatedItems = [];
+        //     }
+        //     storeProducts.forEach((item) =>
+        //         updatedItems.push({ ...item, inCart: false, count: 0 })
+        //     );
+        // }
         this.setState({
             items: updatedItems,
             cart: allCart,
@@ -34,7 +44,6 @@ export default class App extends Component {
         if (items.length === 0) this.addToIndexDB(updatedItems, "items");
     }
     addToIndexDB(items, key) {
-        console.log("items", items);
         items.forEach((item) => {
             db[key]
                 .add(item)

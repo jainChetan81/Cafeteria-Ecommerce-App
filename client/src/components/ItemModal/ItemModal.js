@@ -50,7 +50,6 @@ export default class NewsModal extends Component {
                             Ratings:
                             <span>
                                 {this.averageRatings(activeItem.ratings)}
-                                (Total Ratings: {activeItem.ratings_count})
                             </span>
                         </p>
                         <p className="lead active-website">
