@@ -9,8 +9,8 @@
 -   You can browse through a variety of items using visually appealing UI. You can also search through these items by name
 -   You can also get a detailed view of any book
 -   **Checkout** Functionality with **Payment** option has been implemented
--   Deployment Link: https://chetan-online-bookstore.herokuapp.com/
--   GitHub Link: https://github.com/jainChetan81/Online-BookStore/
+-   Deployment Link: https://chetan-cafeteria-app.herokuapp.com//
+-   GitHub Link: https://github.com/jainChetan81/Cafeteria-Ecommerce-App
 
 ---
 
