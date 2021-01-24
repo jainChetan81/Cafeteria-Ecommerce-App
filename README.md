@@ -4,7 +4,7 @@
 -   Here You Can Browse through or and buy food items for yourself through Online or Cash on Delivery
 -   You can Login or Signup and your password is **encrypted**
 -   All the orders will be stored and can be seen on your screen
--   For Local Deployment go to CLI and type **npm install** to install libraries and then **npm start**
+-   For Local Deployment go to CLI and type **npm install** then **cd client && npm install** to install all libraries and then **npm start**
 -   In this App you can select and buy using built in checkout function
 -   You can browse through a variety of items using visually appealing UI. You can also search through these items by name
 -   You can also get a detailed view of any book

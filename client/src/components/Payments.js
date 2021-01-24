@@ -13,7 +13,7 @@ class Payments extends Component {
                 description={`You Total Payment is ${Math.round(
                     this.props.totalPrice * 1.1
                 )}`}
-                amount={Math.round(this.props.totalPrice * 110)}
+                amount={Math.round(this.props.totalPrice * 1.1)}
                 currency="INR"
                 token={this.onToken} //a callback function from stripe
             >
