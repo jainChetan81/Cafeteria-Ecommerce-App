@@ -32,6 +32,7 @@ export default function NewsCard({
                         width: "100%",
                         height: "225px",
                     }}
+                    alt={item.title}
                     src={item.img}
                 />
                 <div className="news__text">

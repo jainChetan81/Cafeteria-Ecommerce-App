@@ -122,9 +122,9 @@ class Signup extends Component {
                             Sign Up
                         </button>
                         <Link
-                            className="form-submit button-auth mx-3"
+                            className="form-submit button-auth ml-1"
                             to="/login">
-                            Log In
+                            Go To Log In
                         </Link>
                     </div>
                 </form>
