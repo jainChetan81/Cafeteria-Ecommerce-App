@@ -1,4 +1,4 @@
-##Welcome to Chetan Cafeteria Store!! ##
+##Welcome to Chetan Cafeteria Food!##
 
 -   This is a Ecommerce App for Cafeteria made by using MERN stack
 -   Here You Can Browse through or and buy food items for yourself through Online or Cash on Delivery
