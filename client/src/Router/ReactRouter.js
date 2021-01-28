@@ -6,7 +6,6 @@ import Login from "../components/Auth/Login";
 import Signup from "../components/Auth/Signup";
 import db from "../Database/IndexDB.js";
 import OrderHistory from "../Container/OrderHistory";
-// import { routes, authRoutes } from "./routes.js";
 
 class ReactRouter extends Component {
     state = { token: "" };

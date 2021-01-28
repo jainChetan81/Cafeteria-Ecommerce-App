@@ -41,8 +41,11 @@ class Login extends Component {
 
                     db.token
                         .add(res.data.user)
+                        .then(() => {
+                            this.props.history.push("/");
+                            window.location.reload();
+                        })
                         .catch((err) => console.error("err in token", err));
-                    this.props.history.push("/");
                 } else
                     this.setState({
                         error: "Error in Logging in",

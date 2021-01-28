@@ -90,7 +90,6 @@ class OrderHistory extends Component {
                                 margin: "10px auto",
                                 boxSizing: "border-box",
                             }}>
-                            <h5 className="text-center">Order Info</h5>
                             <div className="row">
                                 <div className="col-2">
                                     <i>Email Id: </i>{" "}
