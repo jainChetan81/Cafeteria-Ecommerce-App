@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const keys = require("./config/keys");
 const bodyParser = require("body-parser"),
     PORT = process.env.PORT || 5000,
     cookieSession = require("cookie-session"),
@@ -18,8 +19,7 @@ app.use(
     cookieSession({ maxAge: 30 * 24 * 60 * 60 * 1000, keys: "chetan-cookie" })
 );
 app.use(cookieParser());
-const mongoURI =
-    "mongodb+srv://chetan:abc123abc@cluster0.wf9cc.mongodb.net/server?retryWrites=true&w=majority";
+const mongoURI = keys.mongoURI;
 mongoose
     .connect(mongoURI, {
         useNewUrlParser: true,
