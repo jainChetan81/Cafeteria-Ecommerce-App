@@ -56,12 +56,10 @@ class ReactRouter extends Component {
                     {token !== "" ? (
                         <>
                             <Route
-                                exact
                                 path="/checkout"
                                 component={Checkout}
                             />
                             <Route
-                                exact
                                 path="/orderhistory"
                                 component={OrderHistory}
                             />
