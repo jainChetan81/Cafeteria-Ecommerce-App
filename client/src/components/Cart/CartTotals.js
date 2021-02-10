@@ -54,7 +54,7 @@ const CartTotals = ({
             if (currentUser.length > 0) user = currentUser[0];
             formData.image = "";
             axios
-                .post("http://localhost:5000/api/order", {
+                .post("/api/order", {
                     formData,
                     userID: user.userID,
                     totalPrice,
@@ -62,7 +62,7 @@ const CartTotals = ({
                 .then((res) => {
                     if (res.data.success) {
                         axios
-                            .post("http://localhost:5000/api/stripe", {
+                            .post("/api/stripe", {
                                 token,
                                 orderID: res.data.paymentId,
                                 userID: user.userID,
