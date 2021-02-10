@@ -2,6 +2,7 @@ import React, { Suspense, Component } from "react";
 import { Redirect, Route, Switch, withRouter } from "react-router-dom";
 import Dashboard from "../Container/Dashboard";
 import Checkout from "../Container/Checkout";
+import NotFound from "../Container/NotFound";
 import Login from "../components/Auth/Login";
 import Signup from "../components/Auth/Signup";
 import db from "../Database/IndexDB.js";
@@ -50,25 +51,30 @@ class ReactRouter extends Component {
                         Loading...
                     </div>
                 }>
-                {/* <Switch> */}
-                <Route exact path="/" component={Dashboard} />
-                {token !== "" ? (
-                    <Switch>
-                        <Route exact path="/checkout" component={Checkout} />
-                        <Route
-                            exact
-                            path="/orderhistory"
-                            component={OrderHistory}
-                        />
-                    </Switch>
-                ) : (
-                    <Switch>
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/signup" component={Signup} />
-                    </Switch>
-                )}
+                <Switch>
+                    <Route exact path="/" component={Dashboard} />
+                    {token !== "" ? (
+                        <>
+                            <Route
+                                exact
+                                path="/checkout"
+                                component={Checkout}
+                            />
+                            <Route
+                                exact
+                                path="/orderhistory"
+                                component={OrderHistory}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Route path="/login" component={Login} />
+                            <Route path="/signup" component={Signup} />
+                        </>
+                    )}
+                    <Route component={NotFound} />
+                </Switch>
                 <Redirect to="/" />
-                {/* </Switch> */}
             </Suspense>
         );
     }
